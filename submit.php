@@ -41,7 +41,8 @@ $s3 = new Aws\S3\S3Client(['version' => 'latest', 'region' => 'us-east-1', ]);
 
 // Bucket name
 
-$bucket = uniqid("itmo544-mrp-image-", false);
+//$bucket = uniqid("itmo544-mrp-image-", false);
+$bucket = "mitalee-test";
 
 // Create the bucket only if it exists
 

@@ -18,8 +18,10 @@
                   echo "</br>";
                   echo "Notifications will be sent once you have uploaded your photos";
                   echo "</br>";
+                  echo "</br>";
             }else {
                   echo "Successful login. Upload your images to the gallery";
+                  echo "</br>";
                   echo "</br>";
             }
 	?>
