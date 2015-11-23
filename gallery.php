@@ -16,7 +16,7 @@ $result = $rds->describeDBInstances(array(
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 
-// echo "\n============" . $endpoint . "================\n";
+ echo "\n============" . $endpoint . "================\n";
 // Connect to the database
 
 $link = mysqli_connect($endpoint, "controller", "ilovebunnies", "customerrecords", 3306) or die("Error " . mysqli_error($link));
