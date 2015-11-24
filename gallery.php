@@ -16,16 +16,13 @@ $result = $rds->describeDBInstances(array(
 ));
 
 // Print the endpoint of the database instance
-
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 
 //echo "\n============" . $endpoint . "================\n";
 // Connect to the database
-
 $link = mysqli_connect($endpoint, "controller", "ilovebunnies", "customerrecords", 3306) or die("Error " . mysqli_error($link));
 
 // Check connection to database
-
 if (mysqli_connect_errno())
 	{
 	printf("Connect failed: %s\n", mysqli_connect_error());
@@ -33,7 +30,6 @@ if (mysqli_connect_errno())
 	}
 
 // Select all records from the table
-
 $link->real_query("SELECT * FROM gallery where userid='$id'");
 $res = $link->use_result();
 ?>
@@ -55,8 +51,12 @@ $link->close();
       </div>
   
 <?php
-  $link->real_query("SELECT * FROM gallery where userid='$id'");
-  $res = $link->use_result();
+$rds = new Aws\Rds\RdsClient(['version' => 'latest', 'region' => 'us-east-1', ]);
+$result = $rds->describeDBInstances(array('DBInstanceIdentifier' => 'itmo544-mrp-mysql-db-readonly',));
+$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
+$link = mysqli_connect($endpoint, "controller", "ilovebunnies", "customerrecords", 3306) or die("Error " . mysqli_error($link));
+$link->real_query("SELECT * FROM gallery where userid='$id'");
+$res = $link->use_result();
 ?>
 
       <h2>Sketch image gallery</h2>
