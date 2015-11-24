@@ -115,9 +115,47 @@ if (!($stmt = $link->prepare("INSERT INTO gallery(id,userid,s3rawurl,s3finishedu
 	}
 
 echo "Statement succeeeded";
+
+$path = new Imagick($uploadfile);
+$fname=basename($_FILES['file']['name']);
+
+$path->thumbnailImage(100, 100, true, true);
+mkdir("/tmp/Thumbnails");
+
+$ext = end(explode('.', $fname));
+echo $ext;
+
+$path = '/tmp/Thumbnails/';
+$imagename = uniqid("DestinationImage");
+$image = $imagename . '.' . $ext;
+
+$destpath = $path . $image;
+echo $destpath;
+
+$path->writeImage($destpath);
+
+$thumbnail = uniqid("thumbnails",false);
+echo $thumbnail;
+
+# AWS PHP SDK version 3 create bucket
+$result = $s3->createBucket([
+    'ACL' => 'public-read',
+    'Bucket' => $thumbnail,
+]);
+
+# PHP version 3
+$result = $s3->putObject([
+    'ACL' => 'public-read',
+    'Bucket' => $thumbnail,
+   'Key' => $image,
+'SourceFile' => $destpath,
+]);
+
+$finisheds3url=$result['ObjectURL'];
+
 $userid = $_SESSION["id"];
 $s3rawurl = $url; //  $result['ObjectURL']; from above
-$s3finishedurl = "none";
+$s3finishedurl = $finisheds3url;
 $filename = basename($_FILES['file']['name']);
 $status = 0;
 
@@ -153,5 +191,5 @@ $link->close();
 
 // Redirect the user to gallery page without seeing the internal debugging info
 
-header('Location: gallery.php', true, 303);
+//header('Location: gallery.php', true, 303);
 ?>
