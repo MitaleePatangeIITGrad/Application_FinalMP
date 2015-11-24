@@ -36,7 +36,7 @@ print "</pre>";
 
 // Use a s3Client to create a bucket
 
-useAwsS3S3Client;
+use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client(['version' => 'latest', 'region' => 'us-east-1', ]);
 
 // Bucket name
@@ -123,25 +123,21 @@ $path->thumbnailImage(100, 100, true, true);
 mkdir("/tmp/Thumbnails");
 
 $ext = end(explode('.', $fname));
-echo $ext;
+//echo $ext;
 
 $path = '/tmp/Thumbnails/';
 $imagename = uniqid("DestinationImage");
 $image = $imagename . '.' . $ext;
 
 $destpath = $path . $image;
-echo $destpath;
+echo "DEST PATH IS ------ $destpath";
 
 $path->writeImage($destpath);
 
 $thumbnail = uniqid("thumbnails",false);
-echo $thumbnail;
+echo "BUCKET NAME IS $thumbnail";
 
-# AWS PHP SDK version 3 create bucket
-$result = $s3->createBucket([
-    'ACL' => 'public-read',
-    'Bucket' => $thumbnail,
-]);
+$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $thumbnail, ]);
 
 # PHP version 3
 $result = $s3->putObject([
@@ -152,6 +148,7 @@ $result = $s3->putObject([
 ]);
 
 $finisheds3url=$result['ObjectURL'];
+echo "FINISHED URL IS ------------  $finisheds3url";
 
 $userid = $_SESSION["id"];
 $s3rawurl = $url; //  $result['ObjectURL']; from above
