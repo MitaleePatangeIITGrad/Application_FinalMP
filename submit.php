@@ -135,7 +135,7 @@ $image = $imagename . '.' . $ext;
 $destpath = $uploaddir . $image;
 $img->writeImage($uploaddir . $image); // Write the image to destination
 
-$thumbnail ="thumbnail-test";
+$thumbnail ="mitu-thumbnail-test";
 
 $result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $thumbnail, ]);
 $result = $s3->putObject([ 'ACL' => 'public-read', 'Bucket' => $thumbnail,'Key' => $destpath,'SourceFile' => $destpath,]);
