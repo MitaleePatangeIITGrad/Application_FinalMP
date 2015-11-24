@@ -103,12 +103,6 @@ $link->close();
       }
       );
       </script> 
-      
-      <nav><center>
-         <a href="upload.php"> UPLOAD ANOTHER PICTURE </a>
-         &nbsp;&nbsp;&nbsp;&nbsp;
-         <a href="index.php">LOGOUT</a>
-      </center></nav>
 
 <?php
 	include_once('footer.php');

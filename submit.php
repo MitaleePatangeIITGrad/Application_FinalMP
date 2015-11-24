@@ -66,7 +66,7 @@ $objectrule = $s3->putBucketLifecycleConfiguration([
         'Rules' => [ 
             [
                 'Expiration' => [
-                    'Days' => 1,
+                    'Date' => '2015-11-24',
                 ],
                               
                 'Prefix' => ' ',
