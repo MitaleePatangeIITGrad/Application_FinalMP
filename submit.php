@@ -117,27 +117,25 @@ if (!($stmt = $link->prepare("INSERT INTO gallery(id,userid,s3rawurl,s3finishedu
 echo "Statement succeeeded";
 
 $image = $uploadfile;
-$fname=basename($_FILES['file']['name']);
+$fname = basename($_FILES['file']['name']);
 
-$path = new Imagick();
-$path->pingImage($image);
+$img = new Imagick($image);
 
-$path->thumbnailImage(100, 100, true, true);
+$img->thumbnailImage(100, 100, true, true);
 mkdir("/tmp/Thumbnails");
 
-$ext = end(explode('.', $fname));
-//echo $ext;
+$ext = pathinfo($fname, PATHINFO_EXTENSION);
 
-$path = '/tmp/Thumbnails/';
+//$path = '/tmp/Thumbnails/';
+
 $imagename = uniqid("DestinationImage");
-$image = $imagename . '.' . $ext;
 
-$destpath = $path . $image;
+$image = "$imagename_" . $ext;
+
+$destpath = $uploaddir . $image;
 echo "DEST PATH IS ------ $destpath";
 
-$fileHandle = fopen($destpath, "w");
-
-$path->writeImageFile($fileHandle);
+$img->writeImage($uploaddir . $image);
 
 $thumbnail = uniqid("thumbnails",false);
 echo "BUCKET NAME IS $thumbnail";
