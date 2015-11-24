@@ -122,15 +122,12 @@ $fname = basename($_FILES['file']['name']);
 $img = new Imagick($image);
 
 $img->thumbnailImage(100, 100, true, true);
-mkdir("/tmp/Thumbnails");
 
 $ext = pathinfo($fname, PATHINFO_EXTENSION);
 
-//$path = '/tmp/Thumbnails/';
-
 $imagename = uniqid("DestinationImage");
 
-$image = "$imagename_" . $ext;
+$image = $imagename . '_' . $ext;
 
 $destpath = $uploaddir . $image;
 echo "DEST PATH IS ------ $destpath";
@@ -146,8 +143,8 @@ $result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $thumbnail, ]);
 $result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $thumbnail,
-   'Key' => $image,
-'SourceFile' => $destpath,
+    'Key' => $destpath,
+	'SourceFile' => $destpath,
 ]);
 
 $finisheds3url=$result['ObjectURL'];
@@ -191,5 +188,5 @@ $link->close();
 
 // Redirect the user to gallery page without seeing the internal debugging info
 
-//header('Location: gallery.php', true, 303);
+header('Location: gallery.php', true, 303);
 ?>

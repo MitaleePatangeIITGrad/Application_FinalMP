@@ -18,7 +18,7 @@ session_start();
 		<!-- Header -->
 		<div style="height:100px;background-color:Plum">			
 			<div style="width=100%">
-				<div style="color:DeepSkyBlue;font-family:'Salsa';font-style:cursive;font-size:150%;font-weight:bold;width:100%;padding-left:20%;padding-top:2%;">
+				<div style="color:Teal;font-family:'Salsa';font-style:cursive;font-size:150%;font-weight:bold;width:100%;padding-left:20%;padding-top:2%;">
 					Welcome to Imagica Application
 				</div>
 				<div style="color:DarkBlue;font-family:'Salsa';font-style:cursive;font-size:90%;font-weight:bold;height:40px;padding-left:30%;">
