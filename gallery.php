@@ -43,7 +43,7 @@ $res = $link->use_result();
 while ($row = $res->fetch_assoc())
 	{
 	echo '<a href="' . $row['s3rawurl'] . '" title="' . $row['filename'] . '" data-gallery ><img src="' . $row['s3rawurl']  . '" width="100" height="100"></a>';
-      echo '<a href="' . $row['$s3finishedurl'] . '" title="' . $row['filename'] . '" data-gallery ><img src="' . $row['$s3finishedurl'] . '" width="100" height="100"></a>';
+      echo '<a href="' . $row['s3finishedurl'] . '" title="' . $row['filename'] . '" data-gallery ><img src="' . $row['s3finishedurl'] . '" width="100" height="100"></a>';
 	}
 $link->close();
 ?>	 
