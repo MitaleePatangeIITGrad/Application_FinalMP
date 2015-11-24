@@ -7,7 +7,7 @@ require 'vendor/autoload.php';
 
 // Print the phone provided by user
 
-$phone = $_POST['phone'];
+$phone= $_SESSION["phone"];
 echo "Phone: $phone";
 
 // Upload file to tmp folder with the filename specified
@@ -116,8 +116,11 @@ if (!($stmt = $link->prepare("INSERT INTO gallery(id,userid,s3rawurl,s3finishedu
 
 echo "Statement succeeeded";
 
-$path = new Imagick($uploadfile);
+$image = $uploadfile;
 $fname=basename($_FILES['file']['name']);
+
+$path = new Imagick();
+$path->pingImage($image);
 
 $path->thumbnailImage(100, 100, true, true);
 mkdir("/tmp/Thumbnails");
@@ -132,7 +135,9 @@ $image = $imagename . '.' . $ext;
 $destpath = $path . $image;
 echo "DEST PATH IS ------ $destpath";
 
-$path->writeImage($destpath);
+$fileHandle = fopen($destpath, "w");
+
+$path->writeImageFile($fileHandle);
 
 $thumbnail = uniqid("thumbnails",false);
 echo "BUCKET NAME IS $thumbnail";
