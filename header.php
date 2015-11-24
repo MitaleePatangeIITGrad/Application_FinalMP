@@ -18,21 +18,21 @@ session_start();
 		<!-- Header -->
 		<div style="height:100px;background-color:LightGray">			
 			<div style="width=100%">
-				<div style="color:DeepSkyBlue;font-family:'Salsa';font-style:cursive;font-size:150%;font-weight:bold;width:100%;padding-left:20%;">
+				<div style="color:DeepSkyBlue;font-family:'Salsa';font-style:cursive;font-size:150%;font-weight:bold;width:100%;padding-left:20%;padding-top:2%;">
 					Welcome to Imagica Application
 				</div>
 				<div style="color:DarkSalmon;font-family:'Salsa';font-style:cursive;font-size:80%;font-weight:bold;height:40px;padding-left:30%;">
 					~ Where memories are stored ~
 				</div>
-				<div style="padding-left:40%;">
+				<div style="padding-left:45%;">
 					<ul style="list-style-type:none;margin:0">
 					<?php
 					if(isset($_SESSION['phone']))
 					{
 					?>
-						<li style="display:inline;padding-left:10%"><a href="index.php" style="color:FireBrick;font-weight:bold;">Logout</a></li>
 						<li style="display:inline;padding-left:10%"><a href="upload.php" style="color:FireBrick;font-weight:bold;">Upload Image</a></li>
 						<li style="display:inline;padding-left:10%"><a href="gallery.php" style="color:FireBrick;font-weight:bold;">Gallery</a></li>
+						<li style="display:inline;padding-left:10%"><a href="index.php" style="color:FireBrick;font-weight:bold;">Logout</a></li>
 					<?php
 					}
 					?>
