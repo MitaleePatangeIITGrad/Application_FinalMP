@@ -1,11 +1,11 @@
 <?php
 	include_once('header.php');
 ?>
-      <h3> Signup for ITMO 544 Imagica App  </h3>
+      <h3><center> Signup for ITMO 544 Imagica App </center></h3>
       <div><br/></div>
       <h2><center> Enter User Details </center></h2>
       <center>
-         <!-- The data encoding type, enctype, MUST be specified as below -->
+<div style="min-height:600px;padding-left:20%;padding-right:20%;padding-top:5%">
          <form name="signup" action="insert.php" method="POST">
             <div>
                Enter User Name: <input name="name" type="text" /><br />
@@ -28,6 +28,7 @@
             <div><br/></div>
             <input type="submit" id="buttonSignUp" name="buttonSignUp" value="Sign Up" />
          </form>
+</div>
       </center>
 
 <?php

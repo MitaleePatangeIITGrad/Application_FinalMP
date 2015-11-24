@@ -59,6 +59,25 @@ if (!$s3->doesBucketExist($bucket))
 
 $result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $bucket, 'Key' => $uploadfile, 'SourceFile' => $uploadfile, ]);
 
+//Expiration of s3 object
+$objectrule = $s3->putBucketLifecycleConfiguration([
+    'Bucket' => $bucket,
+    'LifecycleConfiguration' => [
+        'Rules' => [ 
+            [
+                'Expiration' => [
+                    'Days' => 1,
+                ],
+                              
+                'Prefix' => ' ',
+                'Status' => 'Enabled',
+                
+            ],
+            
+        ],
+    ],
+]);
+
 // Print the s3 url
 
 $url = $result['ObjectURL'];
