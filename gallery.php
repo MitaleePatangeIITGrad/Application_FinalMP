@@ -47,8 +47,7 @@ $res = $link->use_result();
 
 while ($row = $res->fetch_assoc())
 	{
-	echo '<a href="' . $row['s3rawurl'] . '" title="' . $row['filename'] . '" data-gallery ><img src="' . $row['s3rawurl'] . '" width="100" height="100" ></a>';
-      echo '<a href="' . $row['$s3finishedurl'] . '" title="' . $row['filename'] . '" data-gallery ><img src="' . $row['$s3finishedurl'] . '" width="100" height="100" ></a>';
+	echo '<a href="' . $row['s3rawurl'] . '" title="' . $row['filename'] . '" data-gallery ><img src="' . $row['s3rawurl'] . '></a>';
 	}
 
 $link->close();
@@ -56,6 +55,21 @@ $link->close();
          </div>
       </div>
       
+      <h2>Sketch image gallery</h2>
+      <div class="links">
+         <div id="links"> 
+<?php
+
+      while ($row = $res->fetch_assoc())
+	{   
+      echo '<a href="' . $row['$s3finishedurl'] . '" title="' . $row['filename'] . '" data-gallery ><img src="' . $row['$s3finishedurl'] . '></a>';
+      }
+
+$link->close();
+?>	 
+         </div>
+      </div>
+     
       <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
       <div id="blueimp-gallery" class="blueimp-gallery">
          <div class="slides"></div>

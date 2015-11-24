@@ -1,22 +1,18 @@
 <?php
 
 // Start the session
-
 session_start();
 require 'vendor/autoload.php';
 
 // Print the phone provided by user
-
 $phone= $_SESSION["phone"];
 echo "Phone: $phone";
 
 // Upload file to tmp folder with the filename specified
-
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['file']['name']);
 
 // Print whether file upload was successful or not
-
 echo '<pre>';
 
 if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile))
@@ -29,23 +25,19 @@ if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile))
 	}
 
 // Print debugging info
-
 echo 'Here is some more debugging info:';
 print_r($_FILES);
 print "</pre>";
 
 // Use a s3Client to create a bucket
-
 use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client(['version' => 'latest', 'region' => 'us-east-1', ]);
 
 // Bucket name
-
 //$bucket = uniqid("itmo544-mrp-image-", false);
 $bucket = "mitalee-test";
 
 // Create the bucket only if it exists
-
 if (!$s3->doesBucketExist($bucket))
 	{
 	$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $bucket, ]);
@@ -56,7 +48,6 @@ if (!$s3->doesBucketExist($bucket))
 	}
 
 // Put the object in the s3 bucket
-
 $result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $bucket, 'Key' => $uploadfile, 'SourceFile' => $uploadfile, ]);
 
 //Expiration of s3 object
@@ -79,26 +70,21 @@ $objectrule = $s3->putBucketLifecycleConfiguration([
 ]);
 
 // Print the s3 url
-
 $url = $result['ObjectURL'];
 echo $url;
 
 // Create a client to access rds db instance
-
 $rds = new Aws\Rds\RdsClient(['version' => 'latest', 'region' => 'us-east-1', ]);
 $result = $rds->describeDBInstances(['DBInstanceIdentifier' => 'itmo544-mrp-mysql-db', ]);
 
 // Print the endpoint of the database instance
-
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 echo "\n============" . $endpoint . "================\n";
 
 // Connect to the database
-
 $link = mysqli_connect($endpoint, "controller", "ilovebunnies", "customerrecords", 3306) or die("Error " . mysqli_error($link));
 
 // Check connection to database
-
 if (mysqli_connect_errno())
 	{
 	printf("Connect failed: %s\n", mysqli_connect_error());
@@ -108,7 +94,6 @@ if (mysqli_connect_errno())
 echo "Connection succeeeded";
 
 // Prepared Statement to insert data
-
 if (!($stmt = $link->prepare("INSERT INTO gallery(id,userid,s3rawurl,s3finishedurl,filename,status) VALUES (NULL,?,?,?,?,?)")))
 	{
 	echo "Prepare failed: (" . $link->errno . ") " . $link->error;
@@ -116,40 +101,48 @@ if (!($stmt = $link->prepare("INSERT INTO gallery(id,userid,s3rawurl,s3finishedu
 
 echo "Statement succeeeded";
 
+//Create thumbnails of the uploaded images
 $image = $uploadfile;
 $fname = basename($_FILES['file']['name']);
 
+/*Create an Imagick instance for thumbnails
 $img = new Imagick($image);
-
 $img->thumbnailImage(100, 100, true, true);
 
-$ext = pathinfo($fname, PATHINFO_EXTENSION);
+$ext = pathinfo($fname, PATHINFO_EXTENSION); //Get file extension
+$imagename = uniqid("DestinationImage"); //Unique name for output image
 
-$imagename = uniqid("DestinationImage");
-
-$image = $imagename . '_' . $ext;
-
+$image = $imagename . '.' . $ext;
 $destpath = $uploaddir . $image;
-echo "DEST PATH IS ------ $destpath";
+$img->writeImage($uploaddir . $image); // Write the image to destination
 
-$img->writeImage($uploaddir . $image);
+$thumbnail ="thumbnail-test";
+//$thumbnail = uniqid("thumbnails",false);
 
-$thumbnail = uniqid("thumbnails",false);
-echo "BUCKET NAME IS $thumbnail";
+//Put the rendered thumbnail image on S3
+$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $thumbnail, ]);
+$result = $s3->putObject([ 'ACL' => 'public-read', 'Bucket' => $thumbnail,'Key' => $destpath,'SourceFile' => $destpath,]);
+
+$finisheds3url=$result['ObjectURL']; */
+
+//Create an Imagick instance for sketch
+$img = new Imagick($image);
+$img->sketchImage(10,0,45);
+
+$imagename = uniqid("sketchImage"); //Unique name for output image
+$ext = pathinfo($fname, PATHINFO_EXTENSION); //Get file extension
+$image = $imagename . '.' . $ext;
+$destpath = $uploaddir . $image;
+$img->writeImage($uploaddir . $image); // Write the image to destination
+
+$thumbnail ="thumbnail-test";
 
 $result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $thumbnail, ]);
-
-# PHP version 3
-$result = $s3->putObject([
-    'ACL' => 'public-read',
-    'Bucket' => $thumbnail,
-    'Key' => $destpath,
-	'SourceFile' => $destpath,
-]);
+$result = $s3->putObject([ 'ACL' => 'public-read', 'Bucket' => $thumbnail,'Key' => $destpath,'SourceFile' => $destpath,]);
 
 $finisheds3url=$result['ObjectURL'];
-echo "FINISHED URL IS ------------  $finisheds3url";
 
+//Initialize table insert values
 $userid = $_SESSION["id"];
 $s3rawurl = $url; //  $result['ObjectURL']; from above
 $s3finishedurl = $finisheds3url;
@@ -157,7 +150,6 @@ $filename = basename($_FILES['file']['name']);
 $status = 0;
 
 // Bind the parameters
-
 $stmt->bind_param("isssi", $userid, $s3rawurl, $s3finishedurl, $filename, $status);
 
 if (!$stmt->execute())
@@ -167,6 +159,7 @@ if (!$stmt->execute())
 
 //Select the topic of subscription from the database
 printf("Row inserted.", $stmt->affected_rows);
+
 $link->real_query("SELECT arn FROM sns where displayname='mp2-notify-mrp'");
 $res = $link->use_result();
 
@@ -181,6 +174,7 @@ $sns = new Aws\Sns\SnsClient(['version' => 'latest', 'region' => 'us-east-1', ])
 $res = $sns->publish(['TopicArn' => $topicarn, 
 'Message' => 'Congratulations', 
 'Subject' => 'Imagica App - image upload success', ]);
+
 
 /* explicit close recommended */
 $stmt->close();
