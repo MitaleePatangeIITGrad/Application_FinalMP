@@ -17,7 +17,7 @@
                   echo "</br>";
                   echo "</br>";
             }else {
-                  echo "Successful login. Upload your images to the gallery";
+                  echo "Successful login. Upload your images to the gallery.";
                   echo "</br>";
                   echo "</br>";
             }
