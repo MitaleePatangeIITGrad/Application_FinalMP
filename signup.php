@@ -1,16 +1,9 @@
-<?php session_start(); ?>
-<html>
-   <head>
-      <title>Signup for ITMO 544 Imagica App</title>
-   </head>
-   <body>
-      <h3>
-         <center> Signup for ITMO 544 Imagica App </center>
-      </h3>
+<?php
+	include_once('header.php');
+?>
+      <h3> Signup for ITMO 544 Imagica App  </h3>
       <div><br/></div>
-      <h2>
-         <center> Enter User Details </center>
-      </h2>
+      <h2><center> Enter User Details </center></h2>
       <center>
          <!-- The data encoding type, enctype, MUST be specified as below -->
          <form name="signup" action="insert.php" method="POST">
@@ -36,5 +29,7 @@
             <input type="submit" id="buttonSignUp" name="buttonSignUp" value="Sign Up" />
          </form>
       </center>
-   </body>
-</html>
+
+<?php
+	include_once('footer.php');
+?>

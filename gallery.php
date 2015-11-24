@@ -1,5 +1,8 @@
 <?php
-session_start();
+	include_once('header.php');
+?>
+
+<?php
 require 'vendor/autoload.php';
 
 //Show the images only uploaded by the user
@@ -35,35 +38,12 @@ $link->real_query("SELECT * FROM gallery where userid='$id'");
 $res = $link->use_result();
 ?>
 
-<!DOCTYPE HTML>
-<!--
-/*
- * blueimp Gallery Demo 2.11.0
- * https://github.com/blueimp/Gallery
- *
- * Copyright 2013, Sebastian Tschan
- * https://blueimp.net
- *
- * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
- */
--->
-<html lang="en">
-   <head>
-      <title>Gallery</title>
-      <meta charset="utf-8">
-      <meta name="description" content="IMAGES GALLERY">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="css/blueimp-gallery.css">
-      <link rel="stylesheet" href="css/blueimp-gallery-indicator.css">
-      <link rel="stylesheet" href="css/demo.css">
-   </head>
-   <body>
       <h1><center>Images Gallery</center></h1>
+      
       <h2>Lightbox image gallery</h2>
       <div class="links">
-         <div id="links">
-            <?php
+         <div id="links">             
+<?php
 
 while ($row = $res->fetch_assoc())
 	{
@@ -74,6 +54,7 @@ $link->close();
 ?>	 
          </div>
       </div>
+      
       <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
       <div id="blueimp-gallery" class="blueimp-gallery">
          <div class="slides"></div>
@@ -85,7 +66,6 @@ $link->close();
          <ol class="indicator"></ol>
       </div>
       
-      
       <h2>Carousel image gallery</h2>
       <!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
       <div id="blueimp-gallery-carousel" class="blueimp-gallery blueimp-gallery-carousel">
@@ -96,27 +76,22 @@ $link->close();
     <a class="play-pause"></a>
     <ol class="indicator"></ol>
       </div>
-      
+         
       <script src="js/blueimp-helper.js"></script>
       <script src="js/blueimp-gallery.js"></script>
       <script src="js/blueimp-gallery-fullscreen.js"></script>
       <script src="js/blueimp-gallery-indicator.js"></script>
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      
       <script>
-         /*jslint evil: true */
-         /*global window, document*/
-
-         // Including jQuery via the protocol relative url above works for both http and https.
-         // Explicitly including jQuery via https allows running the Gallery demo as local file:
-
          if (!window.jQuery) {
              document.write(
                  '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"><\/script>'
              );
          }
       </script>
-      <script src="js/jquery.blueimp-gallery.js"></script>
       
+      <script src="js/jquery.blueimp-gallery.js"></script>    
       <script src="js/demo.js"></script>
       
       <script>
@@ -134,5 +109,7 @@ $link->close();
          &nbsp;&nbsp;&nbsp;&nbsp;
          <a href="index.php">LOGOUT</a>
       </center></nav>
-   </body>
-</html>
+
+<?php
+	include_once('footer.php');
+?>
