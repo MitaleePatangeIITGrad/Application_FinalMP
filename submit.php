@@ -8,6 +8,10 @@ require 'vendor/autoload.php';
 $phone= $_SESSION["phone"];
 echo "Phone: $phone";
 
+$upload = $_POST["buttonFile"];
+$_SESSION["upload"] = $upload;
+
+
 // Upload file to tmp folder with the filename specified
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['file']['name']);

@@ -34,8 +34,10 @@ if (mysqli_connect_errno())
 $link->real_query("SELECT * FROM gallery where userid='$id'");
 $res = $link->use_result();
 
-if(!isset($_POST["buttonFile"])) 
-{
+$upload=$_SESSION["upload"];
+echo $upload;
+
+if(!isset($upload)) {
 ?>
    
       <h2>Lightbox image gallery</h2> 
