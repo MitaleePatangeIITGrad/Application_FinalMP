@@ -44,12 +44,12 @@ $s3 = new Aws\S3\S3Client([
     'region'  => 'us-west-2'
 ]);
 
-
-$result = $s3->createBucket([
-    'ACL' => 'public-read',
-    'Bucket' => $backupbucket,
-]);
-
+if (!$s3->doesBucketExist($backupbucket))
+	{
+	$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $backupbucket, ]);
+	$s3->waitUntil('BucketExists', array('Bucket' => $backupbucket));
+	echo "$sketchbucket Created";
+	}
 
 $result = $s3->putObject([
     'ACL' => 'public-read',
