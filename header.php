@@ -32,7 +32,7 @@ session_start();
 					?>
 						<li style="display:inline;padding-left:10%"><a href="upload.php" style="color:FireBrick;font-weight:bold;">Upload Image</a></li>
 						<li style="display:inline;padding-left:10%"><a href="gallery.php" style="color:FireBrick;font-weight:bold;">Gallery</a></li>
-						<li style="display:inline;padding-left:10%"><a href="index.php" style="color:FireBrick;font-weight:bold;">Logout</a></li>
+						<li style="display:inline;padding-left:10%"><a href="logout.php" style="color:FireBrick;font-weight:bold;">Logout</a></li>
 					<?php
 					}
 					?>
