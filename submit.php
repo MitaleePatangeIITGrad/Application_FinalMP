@@ -39,24 +39,27 @@ $s3 = new Aws\S3\S3Client(['version' => 'latest', 'region' => 'us-east-1', ]);
 
 // Bucket name
 //$bucket = uniqid("itmo544-mrp-image-", false);
-$bucket = "mitu-test";
+$imagebucket = "mitu-test";
 
 // Create the bucket only if it exists
-if (!$s3->doesBucketExist($bucket))
+if (!$s3->doesBucketExist($imagebucket))
 	{
-	$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $bucket, ]);
+	$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $imagebucket, ]);
 	$s3->waitUntil('BucketExists', array(
-		'Bucket' => $bucket
+		'Bucket' => $imagebucket
 	));
-	echo "$bucket Created";
+	echo "$imagebucket Created";
 	}
 
 // Put the object in the s3 bucket
-$result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $bucket, 'Key' => $uploadfile, 'SourceFile' => $uploadfile, ]);
+$result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $imagebucket, 'Key' => $uploadfile, 'SourceFile' => $uploadfile, ]);
+
+$startingdate = date("Y-m-d");
+$newendingdate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($StartingDate)) . " + 30 day"));
 
 //Expiration of s3 object
 $objectrule = $s3->putBucketLifecycleConfiguration([
-    'Bucket' => $bucket,
+    'Bucket' => $imagebucket,
     'LifecycleConfiguration' => [
         'Rules' => [ 
             [
