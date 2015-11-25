@@ -10,7 +10,7 @@ $result = $rds->describeDBInstances(['DBInstanceIdentifier' => 'itmo544-mrp-mysq
 
 // Print the endpoint of the database instance
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-echo "\r\n============" . $endpoint . "================\n";
+echo "\r\n============" . $endpoint . "================\r\n";
 
 // Connect to the database
 $link = mysqli_connect($endpoint, "controller", "ilovebunnies", "customerrecords", 3306) or die("Error " . mysqli_error($link));
@@ -25,10 +25,11 @@ if (mysqli_connect_errno())
 echo "\r\n Connection succeeeded";
 
 $uploaddir = '/tmp/';
-$date = date("Y-m-d H:i:s");
+//$date = date("Y-m-d");
 
-$bkpname = "customerrecords" . $date;
-//$bkpname = uniqid("customerrecords", false);
+//$bkpname = "customerrecords"; 
+//$date;
+$bkpname = uniqid("customerrecords", false);
 
 $ext = $bkpname . '.' . 'sql';
 
