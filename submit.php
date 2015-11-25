@@ -128,7 +128,6 @@ if (!$s3->doesBucketExist($sketchbucket))
 	echo "$sketchbucket Created";
 	}
 
-$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $sketchbucket, ]);
 $result = $s3->putObject([ 'ACL' => 'public-read', 'Bucket' => $sketchbucket,'Key' => $destpath,'SourceFile' => $destpath,]);
 
 $finisheds3url=$result['ObjectURL'];

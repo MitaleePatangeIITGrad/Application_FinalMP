@@ -25,16 +25,22 @@ if (mysqli_connect_errno())
 echo "Connection succeeeded";
 
 $uploaddir = '/tmp/';
-$date = date("Y-m-d H:i:s");
+//$date = date("Y-m-d H:i:s");
 
-$bkpname = "customerrecords" . $date;
-$ext = $bkpname . '.' . sql;
+//$bkpname = "customerrecords" . 
+
+$bkpname = uniqid("customerrecords", false);
+//$date;
+$ext = $bkpname . '.' . 'sql';
 
 $bkppath = $uploaddir. $ext;
+
+echo $bkppath;
 
 $command="mysqldump --user=controller --password=ilovebunnies --host=$endpoint customerrecords > $bkppath";
 
 exec($command);
+//system($command);
 
 //$bucketname = uniqid("dbbackupbucket", false);
 $backupbucket = "mitu-backup-test";
@@ -62,6 +68,7 @@ echo $result['ObjectURL'];
 
 echo "Backup was successful";
 
+$link->close();
 ?>
 
 <!DOCTYPE html>
