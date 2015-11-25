@@ -11,9 +11,9 @@
             </div>
          </form>
 </div>
-
+<div style="min-height:100px;padding-left:20%;padding-right:20%;">
 <a href="introspection.php">Backup Database</a>
-
+</div>
 <?php
 	include_once('footer.php');
 ?>
