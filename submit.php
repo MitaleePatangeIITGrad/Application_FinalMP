@@ -39,7 +39,7 @@ $s3 = new Aws\S3\S3Client(['version' => 'latest', 'region' => 'us-east-1', ]);
 
 // Bucket name
 //$bucket = uniqid("itmo544-mrp-image-", false);
-$bucket = "mitalee-test";
+$bucket = "mitu-test";
 
 // Create the bucket only if it exists
 if (!$s3->doesBucketExist($bucket))
@@ -61,7 +61,7 @@ $objectrule = $s3->putBucketLifecycleConfiguration([
         'Rules' => [ 
             [
                 'Expiration' => [
-                    'Date' => '2015-11-24',
+                    'Date' => '2015-11-25',
                 ],
                               
                 'Prefix' => ' ',
@@ -105,29 +105,9 @@ if (!($stmt = $link->prepare("INSERT INTO gallery(id,userid,s3rawurl,s3finishedu
 
 echo "Statement succeeeded";
 
-//Create thumbnails of the uploaded images
+//Create sketch of the uploaded images
 $image = $uploadfile;
 $fname = basename($_FILES['file']['name']);
-
-/*Create an Imagick instance for thumbnails
-$img = new Imagick($image);
-$img->thumbnailImage(100, 100, true, true);
-
-$ext = pathinfo($fname, PATHINFO_EXTENSION); //Get file extension
-$imagename = uniqid("DestinationImage"); //Unique name for output image
-
-$image = $imagename . '.' . $ext;
-$destpath = $uploaddir . $image;
-$img->writeImage($uploaddir . $image); // Write the image to destination
-
-$thumbnail ="thumbnail-test";
-//$thumbnail = uniqid("thumbnails",false);
-
-//Put the rendered thumbnail image on S3
-$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $thumbnail, ]);
-$result = $s3->putObject([ 'ACL' => 'public-read', 'Bucket' => $thumbnail,'Key' => $destpath,'SourceFile' => $destpath,]);
-
-$finisheds3url=$result['ObjectURL']; */
 
 //Create an Imagick instance for sketch
 $img = new Imagick($image);
@@ -139,11 +119,11 @@ $image = $imagename . '.' . $ext;
 $destpath = $uploaddir . $image;
 $img->writeImage($uploaddir . $image); // Write the image to destination
 
-$sketch ="mitu-thumbnail-test";
+$sketchbucket ="mitu-thumbnail-test";
 //$sketch = uniqid("sketch",false);
 
-$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $sketch, ]);
-$result = $s3->putObject([ 'ACL' => 'public-read', 'Bucket' => $sketch,'Key' => $destpath,'SourceFile' => $destpath,]);
+$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $sketchbucket, ]);
+$result = $s3->putObject([ 'ACL' => 'public-read', 'Bucket' => $sketchbucket,'Key' => $destpath,'SourceFile' => $destpath,]);
 
 $finisheds3url=$result['ObjectURL'];
 

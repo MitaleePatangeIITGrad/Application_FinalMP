@@ -12,6 +12,8 @@
          </form>
 </div>
 
+<a href="introspection.php">Backup Database</a>
+
 <?php
 	include_once('footer.php');
 ?>
