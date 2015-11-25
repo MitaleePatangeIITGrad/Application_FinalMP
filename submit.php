@@ -135,10 +135,11 @@ $image = $imagename . '.' . $ext;
 $destpath = $uploaddir . $image;
 $img->writeImage($uploaddir . $image); // Write the image to destination
 
-$thumbnail ="mitu-thumbnail-test";
+$sketch ="mitu-thumbnail-test";
+//$sketch = uniqid("sketch",false);
 
-$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $thumbnail, ]);
-$result = $s3->putObject([ 'ACL' => 'public-read', 'Bucket' => $thumbnail,'Key' => $destpath,'SourceFile' => $destpath,]);
+$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $sketch, ]);
+$result = $s3->putObject([ 'ACL' => 'public-read', 'Bucket' => $sketch,'Key' => $destpath,'SourceFile' => $destpath,]);
 
 $finisheds3url=$result['ObjectURL'];
 

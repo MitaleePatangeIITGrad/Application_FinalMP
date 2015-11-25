@@ -2,6 +2,8 @@
 	include_once('header.php');
 ?>
 
+<h1><center>Images Gallery</center></h1>
+
 <?php
 require 'vendor/autoload.php';
 
@@ -9,7 +11,6 @@ require 'vendor/autoload.php';
 $id = $_SESSION["id"];
 
 // Create a client to access rds db instance
-
 $rds = new Aws\Rds\RdsClient(['version' => 'latest', 'region' => 'us-east-1', ]);
 $result = $rds->describeDBInstances(array(
 	'DBInstanceIdentifier' => 'itmo544-mrp-mysql-db-readonly',
@@ -32,12 +33,15 @@ if (mysqli_connect_errno())
 // Select all records from the table
 $link->real_query("SELECT * FROM gallery where userid='$id'");
 $res = $link->use_result();
-?>
 
-      <h1><center>Images Gallery</center></h1>
-     
-      <h2>Lightbox image gallery</h2>
-      <div>      
+if( $id == 1) 
+{
+?>
+   
+      <h2>Lightbox image gallery</h2> 
+            <div class="links">
+         <div id="links">    
+                 
 <?php
 while ($row = $res->fetch_assoc())
 	{
@@ -46,16 +50,12 @@ while ($row = $res->fetch_assoc())
 	}
 $link->close();
 ?>	 
+
+         </div>
       </div>
 
-<?php
-$rds = new Aws\Rds\RdsClient(['version' => 'latest', 'region' => 'us-east-1', ]);
-$result = $rds->describeDBInstances(array('DBInstanceIdentifier' => 'itmo544-mrp-mysql-db-readonly',));
-$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-$link = mysqli_connect($endpoint, "controller", "ilovebunnies", "customerrecords", 3306) or die("Error " . mysqli_error($link));
-$link->real_query("SELECT * FROM gallery where userid='$id'");
-$res = $link->use_result();
-?>
+<?php } else { ?>
+
        <h2>Sketch image gallery</h2>
       <div class="links">
          <div id="links">  
@@ -69,7 +69,9 @@ $link->close();
 ?>
          </div>
       </div>
-    
+      
+<?php }  ?> 
+
       <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
       <div id="blueimp-gallery" class="blueimp-gallery">
          <div class="slides"></div>
