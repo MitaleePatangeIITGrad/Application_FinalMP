@@ -44,5 +44,5 @@ printf("Value inserted.", $stmt->affected_rows);
 $stmt->close();
 $link->close();
 
-//header('Location: index.php', true, 303);
+header('Location: index.php', true, 303);
 ?>

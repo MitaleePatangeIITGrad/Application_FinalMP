@@ -84,7 +84,7 @@ $link->close();
                <option value="N">No</option>
             </select>
    <div><br/></div>
-      <input type="submit" id="submit" name="submit" value="ReadOnly" />
+      <input type="submit" id="submit" name="submit" value="Submit" />
 </form>
 	
 <a href="index.php"> Go to Main page</a>
