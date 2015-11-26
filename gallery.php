@@ -9,6 +9,7 @@ require 'vendor/autoload.php';
 
 //Show the images only uploaded by the user
 $id = $_SESSION["id"];
+$phone = $_SESSION["phone"];
 
 // Create a client to access rds db instance
 $rds = new Aws\Rds\RdsClient(['version' => 'latest', 'region' => 'us-east-1', ]);
@@ -36,7 +37,7 @@ $res = $link->use_result();
 
 $upload=$_SESSION["upload"];
 
-if(!isset($upload)) {
+if(!isset($phone)) {
 ?>
    
       <h2>Lightbox image gallery</h2> 

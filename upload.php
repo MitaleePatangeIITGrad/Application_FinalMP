@@ -8,7 +8,20 @@
       <center>
        <p> Thank you for using Imagica Application for your photos.</p><br>
       <?php
+      
+      $mode=$_SESSION["mode"];
       $subscription=$_SESSION["subscription"];
+      
+      if($mode=='Y')
+      {
+            echo "The upload functionality currently is not available.";
+            echo "</br>";
+            echo "Please proceed to the gallery to view your images by clicking on the link below";
+            echo "</br>";
+       ?> 
+       <a href="gallery.php"> Go to Gallery</a>
+       <?php          
+      }else{
 		if($subscription == 'Y')
 		{
                   echo "Successful login. Please check your phone for subscription details and confirm.";
@@ -34,5 +47,6 @@
 </div>
 
 <?php
+}
 	include_once('footer.php');
 ?>

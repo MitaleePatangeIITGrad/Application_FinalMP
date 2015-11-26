@@ -10,9 +10,11 @@
                <input type="submit"  id= "buttonSignUp" name="buttonSignUp" value="Sign Up" />
                </br></br>
                <a href="introspection.php">Backup Database</a>	
+               <a href="gallery.php">View our gallery</a>	
             </div>
          </form>
 </div>
-<?php
+
+<?php 
 	include_once('footer.php');
 ?>

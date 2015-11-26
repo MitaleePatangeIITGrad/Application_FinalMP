@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+ <meta charset="UTF-8"> 
+<html>
+<body>
+
 <?php
 
 // Start the session
@@ -10,7 +15,7 @@ $result = $rds->describeDBInstances(['DBInstanceIdentifier' => 'itmo544-mrp-mysq
 
 // Print the endpoint of the database instance
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-echo "\r\n============" . $endpoint . "================\r\n";
+echo "============" . $endpoint . "================";
 
 // Connect to the database
 $link = mysqli_connect($endpoint, "controller", "ilovebunnies", "customerrecords", 3306) or die("Error " . mysqli_error($link));
@@ -22,7 +27,7 @@ if (mysqli_connect_errno())
 	exit();
 	}
 
-echo "\r\n Connection succeeeded";
+echo "<br>" . "Connection succeeeded";
 
 $uploaddir = '/tmp/';
 //$date = date("Y-m-d");
@@ -35,7 +40,7 @@ $ext = $bkpname . '.' . 'sql';
 
 $bkppath = $uploaddir. $ext;
 
-echo "\r\n" . $bkppath;
+echo "<br>" . $bkppath;
 
 $command="mysqldump --user=controller --password=ilovebunnies --host=$endpoint customerrecords > $bkppath";
 
@@ -53,7 +58,7 @@ if (!$s3->doesBucketExist($backupbucket))
 	{
 	$result = $s3->createBucket(['ACL' => 'public-read', 'Bucket' => $backupbucket, ]);
 	$s3->waitUntil('BucketExists', array('Bucket' => $backupbucket));
-	echo "\r\n$sketchbucket Created";
+	echo "<br>" . "$sketchbucket Created";
 	}
 
 $result = $s3->putObject([
@@ -63,19 +68,23 @@ $result = $s3->putObject([
     'SourceFile' => $bkppath,
 ]);
 
-echo "\r\n" . $result['ObjectURL'];
+echo "<br>" . $result['ObjectURL'];
 
-echo "\r\n Backup was successful";
+echo "<br>" . "Backup was successful";
 
 $link->close();
 ?>
 
-<!DOCTYPE html>
- <meta charset="UTF-8"> 
-<html>
-<body>
 <br>
 <br>
+<form name="mode" action="upload.php" method="POST">
+	Do you want to enable read-only mode on the website?
+            <select name="mode" id="mode">
+               <option value="Y">Yes</option>
+               <option value="N">No</option>
+            </select>
+</form>
+	
 <a href="index.php"> Go to Main page</a>
 </body>
 </html> 
