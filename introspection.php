@@ -77,12 +77,14 @@ $link->close();
 
 <br>
 <br>
-<form name="mode" action="upload.php" method="POST">
+<form name="mode" action="readonly.php" method="POST">
 	Do you want to enable read-only mode on the website?
             <select name="mode" id="mode">
                <option value="Y">Yes</option>
                <option value="N">No</option>
             </select>
+   <div><br/></div>
+      <input type="submit" id="submit" name="submit" value="ReadOnly" />
 </form>
 	
 <a href="index.php"> Go to Main page</a>

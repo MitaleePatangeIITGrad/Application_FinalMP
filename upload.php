@@ -7,9 +7,39 @@
       <div><br/></div>
       <center>
        <p> Thank you for using Imagica Application for your photos.</p><br>
+       
       <?php
+      require 'vendor/autoload.php';
+      $rds = new Aws\Rds\RdsClient(['version' => 'latest', 'region' => 'us-east-1', ]);
+      $result = $rds->describeDBInstances(array(
+	'DBInstanceIdentifier' => 'itmo544-mrp-mysql-db-readonly',
+));
+
+// Print the endpoint of the database instance
+$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
+
+//echo "\n============" . $endpoint . "================\n";
+// Connect to the database
+$link = mysqli_connect($endpoint, "controller", "ilovebunnies", "customerrecords", 3306) or die("Error " . mysqli_error($link));
+
+// Check connection to database
+if (mysqli_connect_errno())
+	{
+	printf("Connect failed: %s\n", mysqli_connect_error());
+	exit();
+	}
       
-      $mode=$_POST["mode"];
+   $res=$link->query("SELECT * FROM introspection ");  
+
+      if ($res->num_rows != 0)
+		{
+		while ($row = $res->fetch_assoc())
+			{
+			$mode = $row['mode'];
+                  }
+            }
+      
+      //$mode=$_POST["mode"];
       $subscription=$_SESSION["subscription"];
       
       if($mode=='Y')
