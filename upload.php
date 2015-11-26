@@ -9,7 +9,7 @@
        <p> Thank you for using Imagica Application for your photos.</p><br>
       <?php
       
-      $mode=$_SESSION["mode"];
+      $mode=$_POST["mode"];
       $subscription=$_SESSION["subscription"];
       
       if($mode=='Y')
