@@ -30,6 +30,7 @@ $res=$link->query("SELECT * FROM introspection ");
       if ($res->num_rows == 0)
 		{
 		$link->close();
+		$link = mysqli_connect($endpoint, "controller", "ilovebunnies", "customerrecords", 3306) or die("Error " . mysqli_error($link));
 		if (!($stmt = $link->prepare("INSERT INTO introspection(mode) VALUES (?)")))
 	{
 	echo "Prepare failed: (" . $link->errno . ") " . $link->error;
@@ -50,9 +51,9 @@ $link->close();
 
             } else 
 			{
-
+$link = mysqli_connect($endpoint, "controller", "ilovebunnies", "customerrecords", 3306) or die("Error " . mysqli_error($link));
 //$stmt = $link->prepare("UPDATE introspection SET mode='$mode';
- $res=$link->query("UPDATE introspection SET mode='$mode'");  
+$link->query("UPDATE introspection SET mode='$mode'");  
 
 echo "Statement succeeded";
 
