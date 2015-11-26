@@ -32,12 +32,14 @@ if (mysqli_connect_errno())
 	}
 
 // Select all records from the table
-$link->real_query("SELECT * FROM gallery where userid='$id'");
-$res = $link->use_result();
+//$link->real_query("SELECT * FROM gallery where userid='$id'");
+//$res = $link->use_result();
 
-$upload=$_SESSION["upload"];
+//$upload=$_SESSION["upload"];
 
 if(!isset($phone)) {
+      $link->real_query("SELECT * FROM gallery");
+      $res = $link->use_result();
 ?>
    
       <h2>Lightbox image gallery</h2> 
@@ -45,27 +47,27 @@ if(!isset($phone)) {
          <div id="links">    
                  
 <?php
-$link->real_query("SELECT * FROM gallery");
-$res = $link->use_result();
 
 while ($row = $res->fetch_assoc())
 	{
 	echo '<a href="' . $row['s3rawurl'] . '" title="' . $row['filename'] . '" data-gallery ><img src="' . $row['s3rawurl']  . '" width="100" height="100"></a>';
       //echo '<a href="' . $row['s3finishedurl'] . '" title="' . $row['filename'] . '" data-gallery ><img src="' . $row['s3finishedurl'] . '" width="100" height="100"></a>';
 	}
-
+$link->close();
 ?>	 
          </div>
       </div>
 
-<?php } else { ?>
+<?php } else { 
+ $link->real_query("SELECT * FROM gallery where userid='$id'");
+$res = $link->use_result();     
+      
+      ?>
 
        <h2>Sketch Lightbox image gallery</h2>
       <div class="links">
          <div id="links">  
 <?php
-$link->real_query("SELECT * FROM gallery where userid='$id'");
-$res = $link->use_result();
 
 while ($row = $res->fetch_assoc())
 	{

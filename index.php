@@ -9,8 +9,8 @@
                <input type="submit"  id= "buttonLogin" name="buttonLogin" value="Login" />
                <input type="submit"  id= "buttonSignUp" name="buttonSignUp" value="Sign Up" />
                </br></br>
-               <a href="introspection.php">Backup Database</a>	
-               <a href="gallery.php">View our gallery</a>	
+               <a href="gallery.php">View our gallery</a></br>
+               <a href="introspection.php">Backup Database</a>
             </div>
          </form>
 </div>
