@@ -46,10 +46,10 @@ if (mysqli_connect_errno())
       {
             echo "The upload functionality currently is not available.";
             echo "</br>";
-            echo "Please proceed to the gallery to view your images by clicking on the link below";
+            echo "Please proceed to the gallery to view your images by clicking on the Gallery link";
             echo "</br>";
        ?> 
-       <a href="gallery.php"> Go to Gallery</a>
+
        <?php          
       }else{
 		if($subscription == 'Y')

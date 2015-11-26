@@ -27,7 +27,7 @@ echo "Connection succeeeded";
 
 $res=$link->query("SELECT * FROM introspection ");  
 
-      if ($res->num_rows = 0)
+      if ($res->num_rows == 0)
 		{
 		$link->close();
 		if (!($stmt = $link->prepare("INSERT INTO introspection(mode) VALUES (?)")))
