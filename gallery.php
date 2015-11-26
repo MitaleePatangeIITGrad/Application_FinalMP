@@ -57,6 +57,7 @@ $link->close();
 ?>	 
          </div>
       </div>
+  <a href="index.php"> Go to Main page</a>    
 
 <?php } else { 
  $link->real_query("SELECT * FROM gallery where userid='$id'");

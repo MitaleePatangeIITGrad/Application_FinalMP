@@ -87,6 +87,6 @@ $link->close();
       <input type="submit" id="submit" name="submit" value="Submit" />
 </form>
 	
-<a href="index.php"> Go to Main page</a>
+
 </body>
 </html> 

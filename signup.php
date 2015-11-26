@@ -5,7 +5,7 @@
       <div><br/></div>
       <h2><center> Enter User Details </center></h2>
       <center>
-<div style="min-height:500px;padding-left:20%;padding-right:20%;padding-top:5%">
+<div style="min-height:300px;padding-left:20%;padding-right:20%;padding-top:5%">
          <form name="signup" action="insert.php" method="POST">
             <div>
                Enter User Name: <input name="name" type="text" /><br />

@@ -24,8 +24,13 @@ if (mysqli_connect_errno())
 
 echo "Connection succeeeded";
 
-// Prepared Statement to insert data
-if (!($stmt = $link->prepare("INSERT INTO introspection(mode) VALUES (?)")))
+
+$res=$link->query("SELECT * FROM introspection ");  
+
+      if ($res->num_rows = 0)
+		{
+		$link->close();
+		if (!($stmt = $link->prepare("INSERT INTO introspection(mode) VALUES (?)")))
 	{
 	echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 	}
@@ -40,9 +45,23 @@ if (!$stmt->execute())
 	}
 
 printf("Value inserted.", $stmt->affected_rows);
-
 $stmt->close();
 $link->close();
+
+            } else 
+			{
+
+//$stmt = $link->prepare("UPDATE introspection SET mode='$mode';
+ $res=$link->query("UPDATE introspection SET mode='$mode'");  
+
+echo "Statement succeeded";
+
+printf("Value updated.");	
+$link->close();		
+			}
+
+
+
 
 header('Location: index.php', true, 303);
 ?>
