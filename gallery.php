@@ -57,7 +57,7 @@ if (!isset($phone))
 ?>	 
          </div>
       </div><br /><br />
-<center> <a href="index.php" style="color:Teal;font-family:'Salsa';font-style:cursive;font-size:70%;font-weight:bold;"> Go to Main page</a>  </center>  
+<center> <a href="index.php" style="color:Teal;font-family:'Salsa';font-style:cursive;font-size:120%;font-weight:bold;"> Go to Main page</a>  </center>  
 
 <?php
 	}

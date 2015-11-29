@@ -23,7 +23,6 @@ $result = $rds->describeDBInstances(array(
 // Print the endpoint of the database instance
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-echo "\n============" . $endpoint . "================\n";
 
 // Connect to the database
 

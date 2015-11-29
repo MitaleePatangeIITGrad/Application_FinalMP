@@ -3,8 +3,6 @@
 <html>
   <body>
 
-
-
 <?php
 
 // Start the session
@@ -45,14 +43,15 @@ $bkppath = $uploaddir . $ext;
 
 // Print the backup path
 
-echo "<br />" . $bkppath;
+echo "<br />" . "Backup Path is  --- $bkppath";
 $command = "mysqldump --user=controller --password=ilovebunnies --host=$endpoint customerrecords > $bkppath";
 exec($command);
 
 // Create a bucket to store the backup
-// $bucketname = uniqid("dbbackupbucket", false);
+// $backupbucket = uniqid("dbbackupbucket", false);
 
 $backupbucket = "mitu-backup-test";
+use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client(['version' => 'latest', 'region' => 'us-east-1', ]);
 
 if (!$s3->doesBucketExist($backupbucket))
@@ -87,7 +86,7 @@ $objectruledb = $s3->putBucketLifecycleConfiguration([
     ],
 ]);
 
-echo "<br />" . $result['ObjectURL'];
+echo "<br />" . "Backup bucket link on s3 is ---" . $result['ObjectURL'];
 echo "<br />" . "Backup was successful";
 $link->close();
 ?>

@@ -64,7 +64,7 @@ if (!$s3->doesBucketExist($imagebucket))
 
 $result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $imagebucket, 'Key' => $uploadfile, 'SourceFile' => $uploadfile, ]);
 $startingdate = date("Y-m-d");
-$newendingdate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($startingDate)) . " + 1 day"));
+$newendingdate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($startingdate)) . " + 1 day"));
 
 // Expiration of s3 object
 

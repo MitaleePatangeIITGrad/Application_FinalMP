@@ -16,7 +16,6 @@
          <div>
             Enter User Name: <input name="name" type="text" /><br />
          </div>
-         <div><br /></div>
          <div>
             Enter Email of user: <input name="email" type="email" ><br />
          </div>

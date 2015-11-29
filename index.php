@@ -9,9 +9,9 @@
          <input type="submit"  id= "buttonLogin" name="buttonLogin" value="Login" />
          <input type="submit"  id= "buttonSignUp" name="buttonSignUp" value="Sign Up" />
          </br></br>
-         <a href="gallery.php" style="color:Teal;font-family:'Salsa';font-style:cursive;font-size:70%;font-weight:bold;">View our gallery</a>
+         <a href="gallery.php" style="color:Teal;font-family:'Salsa';font-style:cursive;font-size:120%;font-weight:bold;">View our gallery</a>
          </br></br>
-         <a href="introspection.php" style="color:Teal;font-family:'Salsa';font-style:cursive;font-size:70%;font-weight:bold;">Backup Database</a>
+         <a href="introspection.php" style="color:Teal;font-family:'Salsa';font-style:cursive;font-size:120%;font-weight:bold;">Backup Database</a>
       </div>
    </form>
 </div>
