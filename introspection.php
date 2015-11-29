@@ -50,7 +50,7 @@ exec($command);
 // Create a bucket to store the backup
 // $backupbucket = uniqid("dbbackupbucket", false);
 
-$backupbucket = "mitu-backup-test";
+$backupbucket = "mitalee-backup-testing";
 use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client(['version' => 'latest', 'region' => 'us-east-1', ]);
 

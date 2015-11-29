@@ -5,8 +5,7 @@
 
 <h3>
    <center> Signup for ITMO 544 Imagica App </center>
-</h3>
-<div><br/></div>
+</h3><br/>
 <h2>
    <center> Enter User Details </center>
 </h2>
@@ -16,6 +15,7 @@
          <div>
             Enter User Name: <input name="name" type="text" /><br />
          </div>
+         <div><br/></div>
          <div>
             Enter Email of user: <input name="email" type="email" ><br />
          </div>
