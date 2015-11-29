@@ -1,14 +1,13 @@
-
 <?php
 session_start();
 require 'vendor/autoload.php';
 
-//post variables fetch from the form
+// Post variables fetch from the form
+
 $uname = $_POST['name'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
 $subscription = $_POST['subscription'];
-echo $subscription;
 
 // Create a client to access rds db instance
 
@@ -53,13 +52,17 @@ if (!$stmt->execute())
 	{
 	printf("Row inserted.", $stmt->affected_rows);
 	$userid = mysqli_insert_id($link);
-	echo "User id is :------------- $userid";
+
+	// Update session parameters
+
 	$_SESSION["id"] = $userid;
 	$_SESSION["name"] = $uname;
+	$_SESSION["phone"] = $phone;
 	$_SESSION["email"] = $email;
 	$_SESSION["subscription"] = $subscription;
-	
-	//Redirect the user to upload an image
+
+	// Redirect the user to upload an image
+
 	header('Location: upload.php', true, 303);
 	}
 
@@ -79,10 +82,9 @@ if ($subscription == 'Y')
 		}
 
 	echo "Topic arn is --- $topicarn";
-	$sns = new Aws\Sns\SnsClient(['version' => 'latest', 'region' => 'us-east-1', ]);
+	$sns = new AwsSnsSnsClient(['version' => 'latest', 'region' => 'us-east-1', ]);
 	$result = $sns->subscribe(['TopicArn' => $topicarn, 'Protocol' => 'sms', 'Endpoint' => $phone, ]);
 	}
 
 $link->close();
 ?>
-

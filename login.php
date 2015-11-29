@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 require 'vendor/autoload.php';
@@ -50,8 +49,9 @@ if (isset($_POST["buttonLogin"]))
 	  else
 		{
 		echo "No records found";
-		
+
 		// Redirect to signup.php
+
 		header('Location: signup.php', true, 303);
 		}
 
@@ -67,6 +67,3 @@ if (isset($_POST["buttonSignUp"]))
 	}
 
 ?>
- 
-
- 
