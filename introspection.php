@@ -64,27 +64,6 @@ if (!$s3->doesBucketExist($backupbucket))
 
 $result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $backupbucket, 'Key' => $bkppath, 'SourceFile' => $bkppath, 'Expires' => strtotime("25 December 2015"), ]);
 
-$startingdate = date("Y-m-d");
-$newendingdate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($startingDate)) . " + 1 day"));
-
-$objectruledb = $s3->putBucketLifecycleConfiguration([
-    'Bucket' => $backupbucket,
-    'LifecycleConfiguration' => [
-        'Rules' => [ 
-            [
-                'Expiration' => [
-                    'Date' => '$newendingdate',
-                ],
-                              
-                'Prefix' => ' ',
-                'Status' => 'Enabled',
-                
-            ],
-            
-        ],
-    ],
-]);
-
 echo "<br />" . "Backup bucket link on s3 is --- " . $result['ObjectURL'];
 echo "<br />" . "Backup was successful";
 $link->close();
