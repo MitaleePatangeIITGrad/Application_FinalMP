@@ -45,9 +45,7 @@ use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client(['version' => 'latest', 'region' => 'us-east-1', ]);
 
 // Image bucket name
-// $imagebucket = uniqid("itmo544-mrp-image-", false);
-
-$imagebucket = "mitu-test";
+$imagebucket = uniqid("itmo544-mrp-image-", false);
 
 // Create the bucket only if it exists
 
@@ -64,7 +62,7 @@ if (!$s3->doesBucketExist($imagebucket))
 
 $result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $imagebucket, 'Key' => $uploadfile, 'SourceFile' => $uploadfile, ]);
 $startingdate = date("Y-m-d");
-$newendingdate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($startingdate)) . " + 1 day"));
+$newendingdate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($startingdate)) . " + 30 day"));
 
 // Expiration of s3 object
 
@@ -123,8 +121,7 @@ $image = $imagename . '.' . $ext;
 $destpath = $uploaddir . $image;
 $img->writeImage($uploaddir . $image); // Write the image to destination
 
-// $sketchbucket = uniqid("sketch",false);
-$sketchbucket = "mitu-thumbnail-test";
+$sketchbucket = uniqid("itmo544-mrp-sketch-",false);
 
 if (!$s3->doesBucketExist($sketchbucket))
 	{

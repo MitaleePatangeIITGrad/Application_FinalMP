@@ -51,6 +51,7 @@ if (!$stmt->execute())
   else
 	{
 	printf("Row inserted.", $stmt->affected_rows);
+	
 	$userid = mysqli_insert_id($link);
 
 	// Update session parameters

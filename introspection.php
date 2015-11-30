@@ -37,7 +37,7 @@ echo "<br />" . "Connection succeeeded";
 // Sqldump to take a backup of database
 
 $uploaddir = '/tmp/';
-$bkpname = uniqid("customerrecords", false);
+$bkpname = uniqid("itmo544-mrp-customerrecords", false);
 $ext = $bkpname . '.' . 'sql';
 $bkppath = $uploaddir . $ext;
 
@@ -48,9 +48,8 @@ $command = "mysqldump --user=controller --password=ilovebunnies --host=$endpoint
 exec($command);
 
 // Create a bucket to store the backup
-// $backupbucket = uniqid("dbbackupbucket", false);
+$backupbucket = uniqid("itmo544-mrp-dbbackupbucket", false);
 
-$backupbucket = "mitalee-backup-testing";
 use Aws\S3\S3Client;
 $s3 = new Aws\S3\S3Client(['version' => 'latest', 'region' => 'us-east-1', ]);
 
@@ -86,7 +85,7 @@ $objectruledb = $s3->putBucketLifecycleConfiguration([
     ],
 ]);
 
-echo "<br />" . "Backup bucket link on s3 is ---" . $result['ObjectURL'];
+echo "<br />" . "Backup bucket link on s3 is --- " . $result['ObjectURL'];
 echo "<br />" . "Backup was successful";
 $link->close();
 ?>
