@@ -37,7 +37,7 @@ Insert.php -
 > This page will process the insertion of details of the signed up user into the user table in database and send a subscription message to the user in case the preference is 'Yes' to get subscribed to the topic ; redirects users to upload page to upload the image.
 
 Submit.php - 
-> This is an intermediate page for doing all the procedure of connecting to database, creating s3 buckets, inserting the images (both raw and finished) in the bucket and data (including the aws s3 link for images) in the database. The finished url is the sketch of the uploaded image created by php imagick. This page also deals with publishing a message to the subscribers of the topic.Bucket Life cycle configuration is also done with an expiry date.
+> This is an intermediate page for doing all the procedure of connecting to database, creating s3 buckets, inserting the images (both raw and finished) in the bucket and data (including the aws s3 link for images) in the database. The finished url is the sketch of the uploaded image created by php imagick. This page also deals with publishing a message to the subscribers of the topic.Expiry date is added to the s3objects.
 
 Readonly.php - 
 > This page connects to the readonly database and inserts or updates the mode (Readonly=Y or N) of the website as per the preference in the introspection page.
