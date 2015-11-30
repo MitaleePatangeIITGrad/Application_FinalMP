@@ -83,7 +83,7 @@ if ($subscription == 'Y')
 		}
 
 	echo "Topic arn is --- $topicarn";
-	$sns = new AwsSnsSnsClient(['version' => 'latest', 'region' => 'us-east-1', ]);
+	$sns = new Aws\Sns\SnsClient(['version' => 'latest', 'region' => 'us-east-1', ]);
 	$result = $sns->subscribe(['TopicArn' => $topicarn, 'Protocol' => 'sms', 'Endpoint' => $phone, ]);
 	}
 
