@@ -60,7 +60,7 @@ if (!$s3->doesBucketExist($imagebucket))
 
 // Put the object in the s3 bucket
 
-$result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $imagebucket, 'Key' => $uploadfile, 'SourceFile' => $uploadfile, 'Expires' => date("2015/12/25"), ]);
+$result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $imagebucket, 'Key' => $uploadfile, 'SourceFile' => $uploadfile, 'Expires' => strtotime("25 December 2015"),]);
 $startingdate = date("Y-m-d");
 $newendingdate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($startingdate)) . " + 30 day"));
 
@@ -132,7 +132,7 @@ if (!$s3->doesBucketExist($sketchbucket))
 	echo "$sketchbucket Created";
 	}
 
-$result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $sketchbucket, 'Key' => $destpath, 'SourceFile' => $destpath,  'Expires' => date("2015/12/25"), ]);
+$result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $sketchbucket, 'Key' => $destpath, 'SourceFile' => $destpath,  'Expires' => strtotime("25 December 2015"), ]);
 $objectrulesk = $s3->putBucketLifecycleConfiguration(['Bucket' => $sketchbucket, 'LifecycleConfiguration' => ['Rules' => [['Expiration' => ['Date' => '$newendingdate', ], 'Prefix' => ' ', 'Status' => 'Enabled', ], ], ], ]);
 $finisheds3url = $result['ObjectURL'];
 
