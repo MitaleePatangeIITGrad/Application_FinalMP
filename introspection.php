@@ -62,7 +62,7 @@ if (!$s3->doesBucketExist($backupbucket))
 	echo "<br />" . "$sketchbucket Created";
 	}
 
-$result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $backupbucket, 'Key' => $bkppath, 'SourceFile' => $bkppath, ]);
+$result = $s3->putObject(['ACL' => 'public-read', 'Bucket' => $backupbucket, 'Key' => $bkppath, 'SourceFile' => $bkppath, 'Expires' => date("2015/12/25"), ]);
 
 $startingdate = date("Y-m-d");
 $newendingdate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($startingDate)) . " + 1 day"));
